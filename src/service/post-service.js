@@ -5,9 +5,18 @@ const post = [
   { name: "nitesh", email: "nitesh@gmail.com", password: "pass" },
 ];
 
-function getPost(req, res) {
-  console.log({ userid: req.decodedToken.id });
-  res.send(post);
+async function getPostByUserId(req, res) {
+  const userid = req.query.userId
+  console.log("getPostForThisUserId", userid);
+  const post = await postDal.getAllPostOfUserId(userid)
+  res.send(post)
+}
+
+async function getPostByPostId(req, res) {
+  const postId = req.params.postId
+  console.log("getPostForThisPostId", postId);
+  const post = await postDal.getPostByPostId(postId)
+  res.send(post)
 }
 
 async function insertPost(req, res) {
@@ -26,4 +35,4 @@ async function insertPost(req, res) {
   }
 }
 
-module.exports = { getPost, insertPost };
+module.exports = { getPostByUserId, insertPost , getPostByPostId };
