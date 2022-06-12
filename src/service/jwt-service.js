@@ -1,6 +1,7 @@
 var jwt = require("jsonwebtoken");
 const decode = require("jsonwebtoken/decode");
 let secretKey = "harish";
+
 function createJwtToken(params) {
   return new Promise((resolve, reject) => {
     var token = jwt.sign(params, secretKey);
