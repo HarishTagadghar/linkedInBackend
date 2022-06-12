@@ -27,8 +27,23 @@ function validateJwtToken(token) {
     });
   });
 }
- createJwtToken({ id: "123" }).then((token)=>{
-    console.log("token debug",token);
-validateJwtToken(token);
 
-});
+
+async function verifyTokenMiddleware(req, res, next) {
+  try {
+    const token = req.headers.token;
+    req.decodedToken =  await validateJwtToken(token)
+ 
+    next()
+  
+  } catch (error) {
+    res.status(401).send({error: error.message})
+  }
+
+}
+// createJwtToken({ id: "123" }).then((token) => {
+//   console.log("token debug", token);
+//   validateJwtToken(token);
+// });
+
+module.exports = {createJwtToken , validateJwtToken ,verifyTokenMiddleware}
