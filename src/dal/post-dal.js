@@ -22,5 +22,9 @@ async function deletePostByPostId(postId) {
     const post =  await Post.deleteOne({_id : postId})
     return post
 }
+async function updatePostByPostId(postId , update) {
+    const post =  await Post.updateOne({_id : postId} , update)
+    return post
+}
 
-module.exports = {insertPost ,getAllPostOfUserId , getPostByPostId , deletePostByPostId}
+module.exports = {insertPost ,getAllPostOfUserId , getPostByPostId , deletePostByPostId ,updatePostByPostId}

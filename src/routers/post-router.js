@@ -9,6 +9,8 @@ router.get("/:postId", jwtService.verifyTokenMiddleware, postService.getPostByPo
 
 router.delete("/:postId", jwtService.verifyTokenMiddleware, postService.deletePostByPostId);
 
+router.put("/:postId", jwtService.verifyTokenMiddleware, postService.updatePostByPostId);
+
 router.post("/", jwtService.verifyTokenMiddleware, postService.insertPost);
 
 
