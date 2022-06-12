@@ -53,14 +53,14 @@
     
     Likes
         API'S
-            GET /likes/count/:id
-                likesModel.findCount({_id : id, status : true})
+            GET /likes/count/:likesForId
+                likesModel.findCount({_id : likesForId, status : true})
                 
-            GET /likes/:id
-                likesModel.find({_id : id, status : true})
+            GET /likes/:likesForId
+                likesModel.find({_id : likesForId, status : true})
 
-            POST /likes/:id
-            PATCH /likes/:id
+            POST /likes/:likesForId
+            PATCH /likes/:likesForId
         
         COLLECTION
             _id

@@ -1,9 +1,5 @@
 const postDal = require("../dal/post-dal");
 
-const post = [
-  { name: "harish", email: "harishtg@gmail.com", password: "pass" },
-  { name: "nitesh", email: "nitesh@gmail.com", password: "pass" },
-];
 
 async function getPostByUserId(req, res) {
   const userid = req.query.userId;

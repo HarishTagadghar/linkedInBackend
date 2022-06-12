@@ -1,6 +1,4 @@
 const {Post} = require('../models/post-model')
-const { post } = require('../routers/post-router')
-
 
 async function insertPost(postInfo) {
     const post = new Post(postInfo)
