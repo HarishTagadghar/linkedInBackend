@@ -1,4 +1,4 @@
-const { User } = require('../models/Users');
+const { User } = require('../models/users-model');
 
 
 async function getUserByEmailId(emailId) {

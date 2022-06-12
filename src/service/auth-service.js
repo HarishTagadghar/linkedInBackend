@@ -1,4 +1,4 @@
-const { User } = require("../models/Users");
+const { User } = require("../models/users-model");
 const userDal = require("../dal/users-dal");
 
 async function login(req, res) {
