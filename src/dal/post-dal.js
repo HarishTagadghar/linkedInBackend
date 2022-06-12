@@ -18,4 +18,9 @@ async function getPostByPostId(postId) {
     return post
 }
 
-module.exports = {insertPost ,getAllPostOfUserId , getPostByPostId}
+async function deletePostByPostId(postId) {
+    const post =  await Post.deleteOne({_id : postId})
+    return post
+}
+
+module.exports = {insertPost ,getAllPostOfUserId , getPostByPostId , deletePostByPostId}

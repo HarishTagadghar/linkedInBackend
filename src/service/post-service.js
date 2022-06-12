@@ -19,6 +19,13 @@ async function getPostByPostId(req, res) {
   res.send(post)
 }
 
+async function deletePostByPostId(req, res) {
+  const postId = req.params.postId
+  console.log("getPostForThisPostId", postId);
+  const post = await postDal.deletePostByPostId(postId)
+  res.send({"postId": postId })
+}
+
 async function insertPost(req, res) {
   try {
     console.log("insert post", req.body);
@@ -35,4 +42,4 @@ async function insertPost(req, res) {
   }
 }
 
-module.exports = { getPostByUserId, insertPost , getPostByPostId };
+module.exports = { getPostByUserId, insertPost , getPostByPostId , deletePostByPostId };
