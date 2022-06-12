@@ -31,4 +31,12 @@ async function register(req, res) {
   }
 }
 
-module.exports = { login, register };
+
+async function updateuserByUserId(req, res) {
+ 
+  console.log("getPostForThisuserId", req.decodedToken.id);
+  const user = await userDal.updateuserByUserId(req.decodedToken.id , req.body)
+  res.send({"userId": req.decodedToken.id , "response" : user })
+}
+
+module.exports = { login, register , updateuserByUserId };

@@ -11,4 +11,8 @@ async function insertUser(userInfo) {
     return result
 }
 
-module.exports = {getUserByEmailId , insertUser}
+async function updateuserByUserId(userId , update) {
+    const user =  await User.updateOne({_id : userId} , update)
+    return user
+}
+module.exports = {getUserByEmailId , insertUser , updateuserByUserId }
