@@ -41,11 +41,11 @@
                     })
 
             PUT /posts
-            GET /posts #getAllPost
+            GET /posts?userId #getAllPostOfUserId
             GET /posts/:postId
             DELETE /posts/:postId
             
-        COLLECTION - USER
+        COLLECTION - post
             _id
             userId
             imageUrl

@@ -1,6 +1,6 @@
 const { User } = require("../models/users-model");
 const userDal = require("../dal/users-dal");
-const jwt = require("./jwt-service")
+const jwt = require("./jwt-service");
 
 async function login(req, res) {
   //  Now find the user by their email address
@@ -16,9 +16,9 @@ async function login(req, res) {
   if (!validPassword) {
     return res.status(400).send("Incorrect password.");
   }
-  
-  const token =  await jwt.createJwtToken({id : user._id})
-  res.send({token : token});
+
+  const token = await jwt.createJwtToken({ id: user._id });
+  res.send({ token: token, userId: user._id });
 }
 
 async function register(req, res) {
