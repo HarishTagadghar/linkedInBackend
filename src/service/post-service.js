@@ -6,12 +6,12 @@ const post = [
 ];
 
 async function getPostByUserId(req, res) {
-  const userid = req.query.userId
+  const userid = req.query.userId;
   console.log("getPostForThisUserId", userid);
-  const post = await postDal.getAllPostOfUserId(userid)
-  res.send(post)
+  const posts = await postDal.getAllPostOfUserId(userid);
+ 
+  res.send(posts);
 }
-
 async function getPostByPostId(req, res) {
   const postId = req.params.postId
   console.log("getPostForThisPostId", postId);
@@ -30,7 +30,7 @@ async function updatePostByPostId(req, res) {
   const postId = req.params.postId
   console.log("getPostForThisPostId", postId);
   const post = await postDal.updatePostByPostId(postId , req.body)
-  res.send({"postId": postId , "response" : post })
+  res.send({"postId": postId })
 }
 
 async function insertPost(req, res) {

@@ -10,12 +10,22 @@ async function insertPost(postInfo) {
 
 async function getAllPostOfUserId(userId) {
     const posts = await Post.find({userId})
+    posts.forEach((post) => {
+        post._doc.postId = post._id;
+        delete post._doc.__v;
+        delete post._doc._id;
+      });
     return posts
 }
 
 async function getPostByPostId(postId) {
-    const post =  await Post.find({_id : postId})
-    return post
+  const post = await Post.findOne({ _id: postId });
+  if (post) {
+    post._doc.postId = post._doc._id;
+    delete post._doc.__v;
+    delete post._doc._id;
+  }
+  return post;
 }
 
 async function deletePostByPostId(postId) {

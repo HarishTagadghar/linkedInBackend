@@ -36,7 +36,7 @@ async function updateuserByUserId(req, res) {
  
   console.log("getPostForThisuserId", req.decodedToken.id);
   const user = await userDal.updateuserByUserId(req.decodedToken.id , req.body)
-  res.send({"userId": req.decodedToken.id , "response" : user })
+  res.send({"userId": req.decodedToken.id })
 }
 
 module.exports = { login, register , updateuserByUserId };
