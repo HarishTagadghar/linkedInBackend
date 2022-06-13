@@ -7,15 +7,25 @@ async function createLike(likeInfo) {
 }
 
 async function getLikeByLikeForId(likeForId) {
-  const result = await Like.find({ likeForId: likeForId, status: true });
-  result.forEach((result) => {
-    result._doc.likeId = result._doc._id;
-    delete result._doc._id;
-    delete result._doc.__v;
-  });
+  const result = await Like.find({ likeForId: likeForId });
+  // result.forEach((result) => {
+  //   result._doc.likeId = result._doc._id;
+  //   delete result._doc._id;
+  //   delete result._doc.__v;
+  // });
   return result;
 }
-async function updateLike (likeInfo) {
 
+async function getLikeCountByLikeForId(likeForId) {
+  const result = await Like.find({ likeForId: likeForId, status: true }).count();
+  return result;
 }
-module.exports = {createLike , getLikeByLikeForId}
+
+
+async function updateLike (likeId ,likeUpdate) {
+  const update = await Like.findOneAndUpdate({_id : likeId} , likeUpdate)
+
+  console.log("update like" , update , "id" , likeId , "req.body" , likeUpdate);
+  return update
+}
+module.exports = {createLike , getLikeByLikeForId,getLikeCountByLikeForId , updateLike}

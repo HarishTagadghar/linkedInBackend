@@ -31,11 +31,21 @@ async function insertLike(req,res)  {
 
   async function getLikeByLikeForId(req, res) {
     const likeForId = req.params.likeForId
-    console.log("getLikeByLikeForId", likeForId);
     const like = await likeDal.getLikeByLikeForId(likeForId)
     res.send(like)
   }
   
-  
+  async function getLikeCountByLikeForId(req, res) {
+    const likeForId = req.params.likeForId
+    const like = await likeDal.getLikeCountByLikeForId(likeForId)
+    res.send(like.toString())
+  }
 
-module.exports = {insertLike ,getLikeByLikeForId}
+  async function updateLike(req , res) {
+    const likeForId = req.params.likeForId;
+   
+    const update = await likeDal.updateLike(likeForId , req.body)
+   res.send({"likeId" : update._id})
+  }
+
+module.exports = {insertLike ,getLikeByLikeForId , getLikeCountByLikeForId , updateLike}
