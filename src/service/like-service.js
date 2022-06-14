@@ -1,32 +1,23 @@
 const likeDal = require('../dal/like-dal')
 
-async function insertLike(req,res)  {
-  try {
-    const LikeInfo = {
-        likeForId:req.body.likeForId,
-        userId:req.decodedToken.id,
-        status:true
+  async function insertLike(req, res) {
+    try {
+      const likeInfo = {
+        likeForId: req.body.likeForId,
+        userId: req.decodedToken.id,
+        status: true
+      }
+      const isLikeUnique = await likeDal.isUniqueLike(likeInfo.likeForId, likeInfo.userId)
+      if (isLikeUnique) {
+        await likeDal.createLike(likeInfo)
+        res.send({likeForId:likeInfo.likeForId})
+      } else {
+        res.status(409).send({ likeForId: likeInfo.likeForId })
+      }
+    } catch (error) {
+      res.status(500).send({ likeError: error.message })
     }
-    const result = await likeDal.createLike(LikeInfo)
-    res.send(result)
-  } catch (error) {
-    res.status(500).send({likeError:error.message})
   }
-}
-
-// async function insertLike(req,res)  {
-//     try {
-//       const LikeInfo = {
-//           likeForId:req.body.likeForId,
-//           userId:req.decodedToken.id,
-//           status:true
-//       }
-//       const result = await updateLike(LikeInfo)
-//       res.send(result)
-//     } catch (error) {
-//       res.status(500).send({likeError:error.message})
-//     }
-//   }
 
 
   async function getLikeByLikeForId(req, res) {

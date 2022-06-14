@@ -12,5 +12,5 @@ const Like = mongoose.model ("Like" , new mongoose.Schema({
     }
 
 }))
-
+Like.createIndexes({likeForId:1 , userId:-1})
 module.exports = {Like}
