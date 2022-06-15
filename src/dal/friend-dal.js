@@ -8,7 +8,7 @@ async function insertFriend(friendInfo) {
 
 
 async function getAllFriendsOfUserId(userId) {
-    const friendsWithId = Friend.find({userId , status: true})
+    const friendsWithId = await Friend.find({userId , status: true})
     return friendsWithId
 }
 

@@ -1,5 +1,6 @@
 const postDal = require("../dal/post-dal");
-
+const friendsService = require ("../service/friend-service")
+const feedsService = require("../service/feeds-service")
 
 async function getPostByUserId(req, res) {
   const userid = req.query.userId;
@@ -38,11 +39,20 @@ async function insertPost(req, res) {
       imageUrl: req.body.imageUrl,
       text: req.body.text,
     };
+    
     const result = await postDal.insertPost(post);
+    insertFeedsInBackground(post.userId , result._id)
     res.send(result);
+
   } catch (error) {
     res.status(500).send({ errorMessage: error.message });
   }
 }
 
+async function insertFeedsInBackground ( userId , postId) {
+    const friends = await friendsService._getAllFriendsOfUserId(userId)
+    friends.forEach((friend) => {
+      feedsService.insertFeed({userId:friend.friendWithUserId , postId})
+    })
+}
 module.exports = { getPostByUserId, insertPost , getPostByPostId , deletePostByPostId , updatePostByPostId };

@@ -6,6 +6,7 @@ const auth = require("./routers/auth-router");
 const post = require("./routers/post-router");
 const like = require("./routers/like-router");
 const friend = require("./routers/friend-router");
+const feeds = require("./routers/feeds-router");
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -32,6 +33,7 @@ app.use("/auth", auth);
 app.use("/post", post);
 app.use("/like", like);
 app.use("/friend", friend);
+app.use("/feeds", feeds);
 
 app.listen(3000, () => {
   console.log("application started on 3000 ");
