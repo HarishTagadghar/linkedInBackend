@@ -73,6 +73,7 @@
 
             GET /friends/:userId
                 friendsModel.find({userId : 122, status : true})
+            GET /friends/count/:userId        
             POST /friends
             PUT /friends
         

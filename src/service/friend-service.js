@@ -7,8 +7,14 @@ async function insertFriend(req , res) {
             friendWithUserId:req.body.friendWithUserId,
             status:true
         }
-        const result = await friendDal.insertFriend(friendInfo)
-            res.send(result)
+        const isUniqueFriend =await friendDal.isUniqueFriend(friendInfo.friendWithUserId , friendInfo.userId)
+        if (isUniqueFriend) {
+    
+           const result = await friendDal.insertFriend(friendInfo)
+               res.send(result)
+       } else {
+        res.status(409).send({friendId :friendInfo.friendWithUserId})
+       }
     } catch (error) {
         res.status(500).send({errorMessage: error.message})
     }
@@ -26,7 +32,13 @@ async function getAllFriendsOfUserId(req , res) {
 
 async function getFriendsCountByUserId(req , res) {
     const friendsCount = await friendDal.getFriendsCountByUserId(req.params.userId)
-    console.log("count" , friendsCount);
     res.send(friendsCount.toString())
 }
-module.exports = {insertFriend , getAllFriendsOfUserId , getFriendsCountByUserId}
+
+async function updateFriend(req , res) {
+    const friendId = req.params.friendId;
+    const update = await friendDal.updateFriend(friendId , req.body)
+    res.send({"friendId" : update._id})
+
+  }
+module.exports = {insertFriend , getAllFriendsOfUserId , getFriendsCountByUserId , updateFriend}

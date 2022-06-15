@@ -12,5 +12,6 @@ const Friend =  mongoose.model("Friend" , new mongoose.Schema({
         type:Boolean
     }
 }))
+Friend.createIndexes({friendWithUserId:1 , userId:-1})
 
 module.exports = {Friend}

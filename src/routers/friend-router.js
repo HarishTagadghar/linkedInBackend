@@ -8,4 +8,5 @@ router.post('/', jwt.verifyTokenMiddleware, friendService.insertFriend)
 router.get('/:userId', jwt.verifyTokenMiddleware, friendService.getAllFriendsOfUserId)
 router.get('/count/:userId', jwt.verifyTokenMiddleware, friendService.getFriendsCountByUserId)
 
+router.put('/:friendId' , jwt.verifyTokenMiddleware , friendService.updateFriend)
 module.exports = router
