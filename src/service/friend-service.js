@@ -1,23 +1,22 @@
 const friendDal = require("../dal/friend-dal")
 
-async function insertFriend(req, res) {
-    try {
+async function insertFriend(userId , friendWithUserId) {
+    
         const friendInfo = {
-            userId: req.decodedToken.id,
-            friendWithUserId: req.body.friendWithUserId,
+            userId,
+            friendWithUserId,
             status: true
         }
+        console.log(friendInfo);
         const isUniqueFriend = await friendDal.isUniqueFriend(friendInfo.friendWithUserId, friendInfo.userId)
         if (isUniqueFriend) {
 
             const result = await friendDal.insertFriend(friendInfo)
-            res.send(result)
+            return result
         } else {
-            res.status(409).send({ friendId: friendInfo.friendWithUserId })
+           throw new Error("Friend Exists " + friendInfo.friendWithUserId)
         }
-    } catch (error) {
-        res.status(500).send({ errorMessage: error.message })
-    }
+    
 }
 async function getAllFriendsOfUserId(req, res) {
     const userId = req.params.userId
