@@ -7,4 +7,6 @@ router.post('/' , jwt.verifyTokenMiddleware , requestFriend.insertRequestFriend 
 router.get('/' , jwt.verifyTokenMiddleware , requestFriend.getRequestFriendByUserId)
 router.put('/seen' ,jwt.verifyTokenMiddleware , requestFriend.updateRequestFriendSeen)
 router.put('/status' ,jwt.verifyTokenMiddleware , requestFriend.updateRequestFriendStatus)
+router.delete('/delete' , jwt.verifyTokenMiddleware , requestFriend.deleteFriendRequest)
+
 module.exports = router

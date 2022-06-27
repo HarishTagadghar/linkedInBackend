@@ -48,9 +48,20 @@ async function insertPost(req, res) {
 
 async function insertFeedsInBackground ( userId , postId) {
     const friends = await friendsService._getAllFriendsOfUserId(userId)
-    friends.forEach((friend) => {
-      feedsService.insertFeed({userId:friend.friendWithUserId , postId})
-    })
+    console.log("all friends" , friends);
+      const ids= {}
+      friends.forEach((friend) => {
+       if (friend.friendWithUserId !== userId) {
+        ids[friend.friendWithUserId] = true;
+       }
+        if (friend.userId !== userId) {
+        ids[friend.userId] = true;
+          
+        }
+      })
+      Object.keys(ids).forEach(id=>{
+        feedsService.insertFeed({userId:id , postId})
+      })
 }
 async function insertTrendInBackground (text , postId) {
  const hashtag = text.split(" ").filter((item)=>{

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const RequestFriend = mongoose.model("RequestFrined",new mongoose.Schema({
+const RequestFriend = mongoose.model("RequestFriend",new mongoose.Schema({
     userId:{
         type:String,
         required:true

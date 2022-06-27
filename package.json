@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon src/server.js"
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "Hairsh Tagadghar",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.5",

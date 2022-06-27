@@ -41,7 +41,6 @@ async function _getAllFriendsOfUserId(userId) {
     const allFriendsOfUserId = await friendDal.getAllFriendsOfUserId(userId)
     allFriendsOfUserId.forEach((friend) => {
         delete friend._doc.__v
-        delete friend._doc.userId
     })
     return allFriendsOfUserId
 }

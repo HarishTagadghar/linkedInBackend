@@ -39,4 +39,15 @@ async function updateuserByUserId(req, res) {
   res.send({"userId": req.decodedToken.id })
 }
 
-module.exports = { login, register , updateuserByUserId };
+async function getAllUsers(req , res) {
+  const users = await userDal.getAllUsers()
+  res.send(users)
+}
+
+async function getUserByUserId(req,res) {
+  const userId = req.params.userId
+  const user = await userDal.getUserByUserId(userId)
+  res.send(user)
+}
+
+module.exports = { login, register , updateuserByUserId , getAllUsers , getUserByUserId};

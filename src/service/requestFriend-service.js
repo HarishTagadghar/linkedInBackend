@@ -28,7 +28,6 @@ async function updateRequestFriendStatus(req, res) {
     try {
         const userId = req.decodedToken.id
         const friendWithUserId = req.body.friendWithUserId
-        console.log("userId", userId, "friendId", friendWithUserId);
         await insertFriend(userId, friendWithUserId)
         const updatedRequests = await requestFriendDal.updateRequestFriendStatus(userId, friendWithUserId)
         res.send(updatedRequests)
@@ -37,4 +36,9 @@ async function updateRequestFriendStatus(req, res) {
         res.status(409).send({ error: error.message })
     }
 }
-module.exports = { insertRequestFriend, getRequestFriendByUserId, updateRequestFriendSeen, updateRequestFriendStatus }
+async function deleteFriendRequest (req,res) {
+    const userId = req.body.userId
+    const deletedRequest = await requestFriendDal.deleteFriendRequest(userId)
+    res.send(deletedRequest)
+}
+module.exports = { insertRequestFriend, getRequestFriendByUserId, updateRequestFriendSeen, updateRequestFriendStatus , deleteFriendRequest }

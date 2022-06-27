@@ -5,4 +5,8 @@ const trendsService = require("../service/trends-service")
 
 router.get("/" , jwt.verifyTokenMiddleware , trendsService.getAllTrends)
 
+router.get("/hashtag/:hashtag" , jwt.verifyTokenMiddleware , trendsService.getTrendByHashtag)
+
+router.get("/count/:hashtag" , jwt.verifyTokenMiddleware , trendsService.getTrendCountByHashtag)
+
 module.exports = router

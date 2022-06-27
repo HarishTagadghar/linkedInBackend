@@ -6,11 +6,22 @@ async function insertTrend(trendInfo) {
     const result = await trend.save()
     return result
 }
-async function getAllTrends(){
-    const createdAt = {$gte:getPastDateByDays(1)}
-    const trends = await Trends.find(createdAt)
+async function getAllUniqueTrends(){
+    const queryDate = {$gte:getPastDateByDays(1)}
+    const trends =  Trends.distinct("hashtag",{createdAt:queryDate})
     return trends
-
+}
+async function getTrends(hashtag){
+    const createdAt = {$gte:getPastDateByDays(1)}
+    const trend =  Trends.find({hashtag , createdAt})
+    return trend
 }
 
-module.exports = {insertTrend , getAllTrends}
+
+async function getTrendsCount(hashtag){
+    const createdAt = {$gte:getPastDateByDays(1)}
+    const trend = await Trends.find({hashtag , createdAt}).count()
+    return trend
+}
+
+module.exports = {insertTrend , getAllUniqueTrends  , getTrends , getTrendsCount}

@@ -29,14 +29,13 @@ const likeDal = require('../dal/like-dal')
   async function getLikeCountByLikeForId(req, res) {
     const likeForId = req.params.likeForId
     const like = await likeDal.getLikeCountByLikeForId(likeForId)
-    res.send(like.toString())
+    res.send({"count":like})
   }
 
   async function updateLike(req , res) {
     const likeForId = req.params.likeForId;
-   
     const update = await likeDal.updateLike(likeForId , req.body)
-   res.send({"likeId" : update._id})
+   res.send({"likeId" : update})
   }
 
 module.exports = {insertLike ,getLikeByLikeForId , getLikeCountByLikeForId , updateLike}

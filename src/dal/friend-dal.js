@@ -6,11 +6,11 @@ async function insertFriend(friendInfo) {
     return result
 }
 
-
 async function getAllFriendsOfUserId(userId) {
-    const friendsWithId = await Friend.find({userId , status: true})
-    return friendsWithId
+    const friendsWithId = await Friend.find({ $or : [{userId:userId} , {friendWithUserId:userId}] , status: true})
+    return friendsWithId  
 }
+
 
 async function getFriendsCountByUserId(userId) {
     const friendsCount = await Friend.find({userId , status: true}).count()

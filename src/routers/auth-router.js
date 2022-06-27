@@ -10,4 +10,7 @@ router.post("/register", authService.register);
 
 router.put("/update" , jwtService.verifyTokenMiddleware , authService.updateuserByUserId)
 
+router.get('/users' , authService.getAllUsers)
+router.get('/:userId' , authService.getUserByUserId)
+
 module.exports = router; 

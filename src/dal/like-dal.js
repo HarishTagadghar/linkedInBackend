@@ -23,9 +23,8 @@ async function getLikeCountByLikeForId(likeForId) {
 
 
 async function updateLike (likeId ,likeUpdate) {
-  const update = await Like.findOneAndUpdate({_id : likeId} , likeUpdate)
+  const update = await Like.findOneAndUpdate({likeForId : likeId , status : true} , likeUpdate)
 
-  console.log("update like" , update , "id" , likeId , "req.body" , likeUpdate);
   return update
 }
 
