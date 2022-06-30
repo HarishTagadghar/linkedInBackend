@@ -39,9 +39,6 @@ async function updateFriend(req, res) {
 
 async function _getAllFriendsOfUserId(userId) {
     const allFriendsOfUserId = await friendDal.getAllFriendsOfUserId(userId)
-    allFriendsOfUserId.forEach((friend) => {
-        delete friend._doc.__v
-    })
     return allFriendsOfUserId
 }
 

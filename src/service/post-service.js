@@ -48,18 +48,7 @@ async function insertPost(req, res) {
 
 async function insertFeedsInBackground ( userId , postId) {
     const friends = await friendsService._getAllFriendsOfUserId(userId)
-    console.log("all friends" , friends);
-      const ids= {}
-      friends.forEach((friend) => {
-       if (friend.friendWithUserId !== userId) {
-        ids[friend.friendWithUserId] = true;
-       }
-        if (friend.userId !== userId) {
-        ids[friend.userId] = true;
-          
-        }
-      })
-      Object.keys(ids).forEach(id=>{
+    friends.forEach(id=>{
         feedsService.insertFeed({userId:id , postId})
       })
 }
