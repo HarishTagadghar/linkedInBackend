@@ -25,4 +25,12 @@ async function updateMessageStatus(req , res) {
     const updatedMessage = await chatDal.updateMessageStatus(messageId)
     res.send(updatedMessage)
 }
-module.exports = {insertChat , getAllFriendsChatList , getFriendChat , updateMessageStatus}
+async function getChatId(req , res) {
+    const userInfo = {
+        fromFriend:req.decodedToken.id,
+        toFriend:req.params.friendId,
+    }
+    const friend = await chatDal.getChatId(userInfo)
+    res.send(friend)
+}
+module.exports = {insertChat , getAllFriendsChatList , getFriendChat , updateMessageStatus , getChatId}

@@ -3,13 +3,15 @@ const {ChatDetails} = require("../models/chatDetails-model")
 
 async function insertChat(userInfo){
     
+    
     const user = await ChatMetaData.find({$or:[{fromFriend:userInfo.fromFriend , toFriend:userInfo.toFriend} , {fromFriend:userInfo.toFriend , toFriend:userInfo.fromFriend}]})
     if (user.length > 0) {
         const userInfos = {
             sendByUserId:userInfo.fromFriend,
             chatId:user[0]._id,
             text:userInfo.text,
-            seen:false
+            seen:false,
+            status:true
         }
         const chat = new ChatDetails(userInfos)
         const result = await chat.save()
@@ -23,7 +25,8 @@ async function insertChat(userInfo){
         sendByUserId:userInfo.fromFriend,
         chatId:createdUser._id,
         text:userInfo.text,
-        seen:false
+        seen:false,
+        status:true
     }
     const chat = new ChatDetails(userInfos)
     const result = await chat.save()
@@ -31,9 +34,24 @@ async function insertChat(userInfo){
 
 }
 
+async function getChatId(userInfo){
+    const user = await ChatMetaData.find({$or:[{fromFriend:userInfo.fromFriend , toFriend:userInfo.toFriend} , {fromFriend:userInfo.toFriend , toFriend:userInfo.fromFriend}]})
+    return user
+}
+
 async function getAllFriendsChatList(userId){
     const user = await ChatMetaData.find({$or:[{fromFriend:userId } , {toFriend:userId}]})
-    return user
+    const ids = {}
+    user.forEach((friend) => {
+    if (friend.fromFriend !== userId) {
+      ids[friend.fromFriend] = true;
+    }
+    if (friend.toFriend !== userId) {
+      ids[friend.toFriend] = true;
+
+    }
+  })
+    return Object.keys(ids)
 }
 
 async function getFriendChat(chatId , userId){
@@ -47,4 +65,4 @@ async function updateMessageStatus(messageId) {
 }
 
 
-module.exports = {insertChat , getAllFriendsChatList , getFriendChat , updateMessageStatus}
+module.exports = {insertChat , getAllFriendsChatList , getFriendChat , updateMessageStatus , getChatId}
