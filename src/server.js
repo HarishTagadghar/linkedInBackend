@@ -9,6 +9,7 @@ const friend = require("./routers/friend-router");
 const feeds = require("./routers/feeds-router");
 const trends = require("./routers/trends-router");
 const requestFriend = require("./routers/requestFriend-router");
+const chat = require("./routers/chat-router");
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -39,6 +40,7 @@ app.use("/friend", friend);
 app.use("/feeds", feeds);
 app.use("/trends", trends);
 app.use("/requestFriend", requestFriend);
+app.use("/chat", chat);
 
 
 
