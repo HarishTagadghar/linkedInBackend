@@ -9,5 +9,14 @@ async function insertChat(req , res)  {
     const chat = await chatDal.insertChat(userInfo)
     res.send(chat)
 }
-
-module.exports = {insertChat}
+async function getAllFriendsChatList(req , res) {
+    const userId = req.decodedToken.id
+    const user = await chatDal.getAllFriendsChatList(userId)
+    res.send(user)
+}
+async function getFriendChat(req, res) {
+    const chatId = req.body.chatId
+    const chat = await chatDal.getFriendChat(chatId)
+    res.send(chat)
+}
+module.exports = {insertChat , getAllFriendsChatList , getFriendChat}
