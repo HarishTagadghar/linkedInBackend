@@ -8,7 +8,8 @@ async function insertChat(userInfo){
         const userInfos = {
             sendByUserId:userInfo.fromFriend,
             chatId:user[0]._id,
-            text:userInfo.text
+            text:userInfo.text,
+            seen:false
         }
         const chat = new ChatDetails(userInfos)
         const result = await chat.save()
@@ -21,7 +22,8 @@ async function insertChat(userInfo){
     const userInfos = {
         sendByUserId:userInfo.fromFriend,
         chatId:createdUser._id,
-        text:userInfo.text
+        text:userInfo.text,
+        seen:false
     }
     const chat = new ChatDetails(userInfos)
     const result = await chat.save()
@@ -34,8 +36,15 @@ async function getAllFriendsChatList(userId){
     return user
 }
 
-async function getFriendChat(chatId){
-    const chat = await ChatDetails.find({chatId})
+async function getFriendChat(chatId , userId){
+    await ChatDetails.updateMany({$nor:[{sendByUserId:userId}] , chatId},{seen:true})
+    const chat = await ChatDetails.find({chatId , status: true})
     return chat
 }
-module.exports = {insertChat , getAllFriendsChatList , getFriendChat}
+async function updateMessageStatus(messageId) {
+    const updatedMessage = await ChatDetails.updateOne({_id:messageId} , {status:false})
+    return updatedMessage
+}
+
+
+module.exports = {insertChat , getAllFriendsChatList , getFriendChat , updateMessageStatus}

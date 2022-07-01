@@ -10,6 +10,12 @@ const ChatDetails = mongoose.model("ChatDetails" , new mongoose.Schema({
    },
    sendByUserId:{
       type:String
+   },
+   seen:{
+      type:Boolean
+   },
+   status:{
+      type:Boolean
    }
 },{timestamps:true}
 )) 

@@ -5,6 +5,7 @@ const chatServer = require("../service/chat-service")
 
 router.post('/' , jwt.verifyTokenMiddleware , chatServer.insertChat)
 router.get('/chatList' , jwt.verifyTokenMiddleware , chatServer.getAllFriendsChatList)
-router.get('/friendChat' , jwt.verifyTokenMiddleware , chatServer.getFriendChat)
+router.get('/friendChat/:chatId' , jwt.verifyTokenMiddleware , chatServer.getFriendChat)
+router.put('/friendChat/:messageId' , jwt.verifyTokenMiddleware , chatServer.updateMessageStatus)
 
 module.exports = router

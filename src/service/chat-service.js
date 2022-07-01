@@ -15,8 +15,14 @@ async function getAllFriendsChatList(req , res) {
     res.send(user)
 }
 async function getFriendChat(req, res) {
-    const chatId = req.body.chatId
-    const chat = await chatDal.getFriendChat(chatId)
+    const chatId = req.params.chatId
+    const userId = req.decodedToken.id
+    const chat = await chatDal.getFriendChat(chatId , userId)
     res.send(chat)
 }
-module.exports = {insertChat , getAllFriendsChatList , getFriendChat}
+async function updateMessageStatus(req , res) {
+    const messageId = req.params.messageId
+    const updatedMessage = await chatDal.updateMessageStatus(messageId)
+    res.send(updatedMessage)
+}
+module.exports = {insertChat , getAllFriendsChatList , getFriendChat , updateMessageStatus}
